@@ -8,11 +8,11 @@
 #include <utils/Trace.h>
 #include <inttypes.h>
 
-#define DISPLAY_LOGD(msg, ...) ALOGD("[%s] " msg, mDisplayName.string(), ##__VA_ARGS__)
-#define DISPLAY_LOGV(msg, ...) ALOGV("[%s] " msg, mDisplayName.string(), ##__VA_ARGS__)
-#define DISPLAY_LOGI(msg, ...) ALOGI("[%s] " msg, mDisplayName.string(), ##__VA_ARGS__)
-#define DISPLAY_LOGW(msg, ...) ALOGW("[%s] " msg, mDisplayName.string(), ##__VA_ARGS__)
-#define DISPLAY_LOGE(msg, ...) ALOGE("[%s] " msg, mDisplayName.string(), ##__VA_ARGS__)
+#define DISPLAY_LOGD(msg, ...) ALOGD("[%s] " msg, mDisplayName.c_str(), ##__VA_ARGS__)
+#define DISPLAY_LOGV(msg, ...) ALOGV("[%s] " msg, mDisplayName.c_str(), ##__VA_ARGS__)
+#define DISPLAY_LOGI(msg, ...) ALOGI("[%s] " msg, mDisplayName.c_str(), ##__VA_ARGS__)
+#define DISPLAY_LOGW(msg, ...) ALOGW("[%s] " msg, mDisplayName.c_str(), ##__VA_ARGS__)
+#define DISPLAY_LOGE(msg, ...) ALOGE("[%s] " msg, mDisplayName.c_str(), ##__VA_ARGS__)
 
 uint8_t formatToBpp(int format)
 {
@@ -296,7 +296,7 @@ int ExynosDisplay::clearDisplay()
     int ret = ioctl(this->mDisplayFd, S3CFB_WIN_CONFIG, &win_data);
     LOG_ALWAYS_FATAL_IF(ret < 0,
             "%s ioctl S3CFB_WIN_CONFIG failed to clear screen: %s",
-            mDisplayName.string(), strerror(errno));
+            mDisplayName.c_str(), strerror(errno));
     // the causes of an empty config failing are all unrecoverable
 
     return win_data.fence;
